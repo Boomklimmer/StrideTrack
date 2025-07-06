@@ -252,4 +252,35 @@ git diff
 
 ---
 
-**Tip:** If you ever get stuck, use `git status` to see what’s going on! 
+**Tip:** If you ever get stuck, use `git status` to see what's going on!
+
+---
+
+## 🚨 TROUBLESHOOTING: Git Lock File Issues
+
+### **Problem: "Another git process seems to be running"**
+If you see this error:
+```
+fatal: Unable to create 'C:/StrideTrack/.git/index.lock': File exists.
+Another git process seems to be running in this repository
+```
+
+### **Solution: Remove the lock file**
+```bash
+Remove-Item .git\index.lock
+```
+
+### **Then try your command again:**
+```bash
+git commit -m "Your commit message"
+```
+
+### **Why this happens:**
+- Git process didn't finish properly (like when Vim editor gets stuck)
+- Git creates a lock file to prevent conflicts
+- The lock file needs to be manually removed
+
+### **Prevention:**
+- Always close Git editors properly
+- Use `git commit -m "message"` instead of just `git commit` to avoid opening editors
+- If you get stuck in Vim, press `Esc` then type `:q!` and press Enter 
