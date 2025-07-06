@@ -112,6 +112,83 @@ Go to your GitHub repository in your browser. You should see all your project fi
 
 ---
 
+# How to Use Git: Common Commands and Workflow
+
+Git is a tool that helps you track changes in your project, collaborate with others, and safely manage your code. Here are the most common commands and how to use them:
+
+## 1. Initialize a Repository
+Start tracking a project folder with Git:
+```sh
+git init
+```
+
+## 2. Check the Status
+See which files have changed or are staged for commit:
+```sh
+git status
+```
+
+## 3. Add Files to Staging
+Tell Git which files you want to include in your next commit:
+```sh
+git add filename.txt      # Add a specific file
+# or
+git add .                 # Add all changed files
+```
+
+## 4. Commit Changes
+Save your staged changes with a message:
+```sh
+git commit -m "Describe your changes here"
+```
+
+## 5. Push Changes to GitHub
+Send your commits to the remote repository:
+```sh
+git push                  # Push to the current branch
+# or, for the first push:
+git push -u origin branchname
+```
+
+## 6. Pull Latest Changes from GitHub
+Update your local project with changes from the remote repository:
+```sh
+git pull
+```
+
+## 7. Create a New Branch
+Work on a new feature or fix without affecting the main code:
+```sh
+git checkout -b new-feature
+```
+
+## 8. Switch Branches
+Move between branches:
+```sh
+git checkout branchname
+```
+
+## 9. View Commit History
+See a list of past commits:
+```sh
+git log
+```
+
+## 10. Configure Your Name and Email
+Set your name and email for commits:
+```sh
+git config --global user.name "Your Name"
+git config --global user.email "your@email.com"
+```
+
+## 11. Clone a Repository
+Download a project from GitHub to your computer:
+```sh
+git clone https://github.com/username/repository.git
+```
+
+---
+
 # StrideTrack Project: Initial Setup Guide (Phase 1, Task 1.1)
 
 This guide documents all the setup steps for starting the StrideTrack project, following the Bulletproof Methodology. Each step is explained in plain English and includes example commands or actions. You do not need to be a coder to follow these instructions—just copy and paste the commands, or ask your AI assistant to run them for you.
