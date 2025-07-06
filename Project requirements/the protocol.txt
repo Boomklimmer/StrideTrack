@@ -1,17 +1,17 @@
-Collaborative Workflow Methodology (The Protocol): To ensure accuracy and productivity, especially when modifying code, we will strictly follow this workflow:
+Collaborative Workflow Methodology (The Protocol): To ensure accuracy and productivity, especially when modifying code, we will strictly follow this workflow for the StrideTrack project:
 
-    a. Define Goal: Clearly state the problem to be solved or the feature to be added.
+    a. Define Goal: Clearly state the problem to be solved or the feature to be added to the StrideTrack wellness challenge tracking application.
     b. Analyze & Plan:
         i. Examine relevant code sections using `read_file`.
-        ii. For MODIFICATIONS or ADDITIONS: Read the specific code block to be changed/added to.
+        ii. For MODIFICATIONS or ADDITIONS: Read the specific code block to be changed/added to (React components, Node.js API endpoints, TypeScript interfaces, etc.).
         iii. For DELETIONS: Read the code block to be deleted AND several lines immediately *before* and *after* it to establish clear anchors. State that these anchors are being read for deletion safety.
         iv. Propose a clear, step-by-step plan, breaking complex tasks into smaller `edit_file` calls.
-    c. Explain Change: Before each `edit_file` call, explain *what* code will be changed/added/deleted and *why*.
+    c. Explain Change: Before each `edit_file` call, explain *what* code will be changed/added/deleted and *why* in the context of StrideTrack (frontend UI, backend API, database models, etc.).
     d. Risk Assessment: Briefly outline potential risks.
         i. For DELETIONS (especially in large files): Explicitly state the risk of the automated tool misinterpreting context and potentially removing adjacent code. Highlight the critical importance of the post-deletion verification step (Rule 11.i.ii).
-        ii. For any change: Note if it might affect other application features.
-    e. Identify Checks: Specify which functions or application features should be tested by the user *after* the change is applied to ensure it worked correctly and didn't break anything else.
-    f. Stop Application: Ensure the Story Buddy application (the Python process) is stopped before proceeding with `edit_file`, especially for core application files.
+        ii. For any change: Note if it might affect other StrideTrack features (authentication, weekly submissions, leaderboard, dashboard, etc.).
+    e. Identify Checks: Specify which functions or application features should be tested by the user *after* the change is applied to ensure it worked correctly and didn't break anything else (React app loads, API endpoints respond, database connections work, etc.).
+    f. Stop Application: Ensure the StrideTrack application (React development server and Node.js backend server) is stopped before proceeding with `edit_file`, especially for core application files (package.json, main React components, Express server files).
     g. User Consent: Obtain explicit user confirmation ("yes" or equivalent) before proceeding with the `edit_file` tool call.
     h. Apply Change: Use the `edit_file` tool.
         i. For DELETIONS: Structure the `code_edit` parameter to clearly show the *unchanged anchor lines* immediately before and after the deleted block (using `// ... existing code ...` appropriately) to help the tool target correctly.
@@ -22,7 +22,8 @@ Collaborative Workflow Methodology (The Protocol): To ensure accuracy and produc
         iv. **If Verification Fails:** Attempt to reapply or fix (following Rule 4 on retries). If automated edits fail repeatedly (3 attempts for the same logical step), provide manual instructions.
     j. User Testing & Confirmation: Request the user to perform the checks identified in step (e) and report back the results (including relevant logs or console output if issues occur). Await explicit user confirmation before proceeding.
     k. Proceed or Re-evaluate: Based on user confirmation and test results, either move to the next step in the plan or re-evaluate the approach if the previous step failed or caused issues.
-    l. Acknowledge Completion: Clearly state when a specific task or fix is considered complete and verified. Remind the user to make a backup.
-    m. The User has no coding skill. Bear this in mind.
+    l. Acknowledge Completion: Clearly state when a specific task or fix is considered complete and verified. Remind the user to commit changes to Git and push to the dev branch.
+    m. The User has no coding skill. Bear this in mind when explaining React, Node.js, TypeScript, and database concepts.
+    n. Tech Stack Context: Remember we're building with React (frontend), Node.js/Express (backend), TypeScript, PostgreSQL database, and following the Bulletproof methodology for StrideTrack wellness challenge tracking application.
 
 
