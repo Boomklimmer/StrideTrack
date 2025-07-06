@@ -357,7 +357,44 @@ npm run format
 ---
 
 ## 7. Validation Checkpoint
-- **Goal:** All team members (or you, with AI help) can clone the repo, install dependencies, and run a "Hello World" in both frontend and backend using Docker or local setup.
+- **Goal:** All team members (or you, with AI help) can clone the repo, install dependencies, and run a "Hello World" in both frontend and backend using local setup.
+
+---
+
+## 8. Optional: Add Docker Later (When Ready to Ship)
+
+**When to add Docker:** After your app is working locally and you're ready to deploy or share it with others.
+
+**Why Docker is optional for beginners:**
+- Focus on learning core technologies first (React, Node.js, databases)
+- Docker adds complexity that can be overwhelming when starting out
+- You can always add it later when you understand how everything works
+
+### How to Add Docker Later:
+
+**Step 1: Create a Dockerfile for your frontend**
+- Tells Docker how to build and run your React app
+- Simple file that says "take my React code and run it in a container"
+
+**Step 2: Create a Dockerfile for your backend**
+- Tells Docker how to build and run your Node.js API
+- Simple file that says "take my Node.js code and run it in a container"
+
+**Step 3: Create docker-compose.yml**
+- Tells Docker how to run frontend, backend, and database together
+- One command to start everything: `docker-compose up`
+
+**Step 4: Test with Docker**
+- Should work exactly the same as your local setup
+- Now you can deploy to any server that supports Docker
+
+### Benefits of Adding Docker Later:
+- **Easy deployment** - Works the same everywhere
+- **Team collaboration** - Everyone has the same environment
+- **Professional setup** - Industry standard for modern apps
+- **Scalability** - Easy to run multiple instances
+
+**Note:** Docker is much easier to add after your app is working. You'll appreciate it more when you understand what it's doing!
 
 ---
 
