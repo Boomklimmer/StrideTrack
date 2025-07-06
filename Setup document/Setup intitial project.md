@@ -241,15 +241,100 @@ This guide documents all the setup steps for starting the StrideTrack project, f
 ---
 
 ## 4. Set Up Code Quality Tools
-- **What:** Add tools to automatically check and format your code.
-- **How:**
-  1. In both `frontend` and `backend`, you will later run:
-     ```sh
-     npm install --save-dev prettier eslint husky
-     ```
-  2. Add configuration files for Prettier and ESLint (these can be generated or copied from templates).
-  3. Set up Husky to run checks before each commit.
-- **Why:** Ensures code is clean, consistent, and error-free.
+
+**What this does:** Adds tools that help you write better code by catching errors and making it look consistent.
+
+**Why this matters:** These tools help prevent bugs and make your code easier to read and maintain.
+
+### Step 1: Create a package.json file
+First, we need to tell npm (Node Package Manager) about our project:
+
+```bash
+npm init -y
+```
+
+**What this does:** Creates a `package.json` file that tracks your project's dependencies and scripts.
+
+### Step 2: Install the code quality tools
+Install ESLint (finds errors) and Prettier (formats code):
+
+```bash
+npm install --save-dev eslint prettier
+```
+
+**What this does:** Downloads and installs the tools we need. The `--save-dev` means these are only for development, not for running the app.
+
+### Step 3: Set up ESLint (Error Finder)
+ESLint will help you find problems in your code. Run this command:
+
+```bash
+npx eslint --init
+```
+
+**When it asks questions, choose these answers:**
+- **"How would you like to use ESLint?"** → Choose "To check syntax and find problems"
+- **"What type of modules does your project use?"** → Choose "JavaScript modules (import/export)"
+- **"Which framework does your project use?"** → Choose "React"
+- **"Does your project use TypeScript?"** → Choose "Yes"
+- **"Where does your code run?"** → Choose "Browser"
+- **"How would you like to define a style for your project?"** → Choose "Use a popular style guide"
+- **"Which style guide do you want to follow?"** → Choose "Airbnb"
+- **"What format do you want your config file to be in?"** → Choose "JavaScript"
+
+**What this does:** Creates an ESLint configuration file that tells ESLint how to check your code.
+
+### Step 4: Set up Prettier (Code Formatter)
+Prettier will automatically format your code to look nice. Create a configuration file:
+
+```bash
+echo '{
+  "semi": true,
+  "trailingComma": "es5",
+  "singleQuote": true,
+  "printWidth": 80,
+  "tabWidth": 2
+}' > .prettierrc
+```
+
+**What this does:** Creates a `.prettierrc` file that tells Prettier how to format your code.
+
+### Step 5: Add helpful commands to package.json
+Open your `package.json` file and add these lines to the "scripts" section:
+
+```json
+"scripts": {
+  "test": "echo \"Error: no test specified\" && exit 1",
+  "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
+  "lint:fix": "eslint . --ext .js,.jsx,.ts,.tsx --fix",
+  "format": "prettier --write .",
+  "format:check": "prettier --check ."
+}
+```
+
+**What these commands do:**
+- `npm run lint` - Check your code for problems
+- `npm run lint:fix` - Fix problems automatically (when possible)
+- `npm run format` - Format your code to look nice
+- `npm run format:check` - Check if your code is properly formatted
+
+### Step 6: Test that everything works
+Try running the tools to make sure they work:
+
+```bash
+npm run lint
+npm run format
+```
+
+**What to expect:** 
+- If there are no errors, you'll see a success message
+- If there are errors, the tools will tell you what needs to be fixed
+
+### How to use these tools:
+- **Before committing code:** Run `npm run lint` to check for problems
+- **To fix formatting:** Run `npm run format` to make your code look nice
+- **To fix errors automatically:** Run `npm run lint:fix` (fixes what it can)
+
+**Note:** These are manual commands - you run them when you want to check your code. This is simpler than automatic hooks that might block your commits.
 
 ---
 
