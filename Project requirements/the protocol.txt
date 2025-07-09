@@ -11,9 +11,9 @@ Collaborative Workflow Methodology (The Protocol): To ensure accuracy and produc
         i. For DELETIONS (especially in large files): Explicitly state the risk of the automated tool misinterpreting context and potentially removing adjacent code. Highlight the critical importance of the post-deletion verification step (Rule 11.i.ii).
         ii. For any change: Note if it might affect other StrideTrack features (authentication, weekly submissions, leaderboard, dashboard, etc.).
     e. Identify Checks: Specify which functions or application features should be tested by the user *after* the change is applied to ensure it worked correctly and didn't break anything else (React app loads, API endpoints respond, database connections work, etc.).
-    f. Stop Application: Ensure the StrideTrack application (React development server and Node.js backend server) is stopped before proceeding with `edit_file`, especially for core application files (package.json, main React components, Express server files).
-    g. User Consent: Obtain explicit user confirmation ("yes" or equivalent) before proceeding with the `edit_file` tool call.
-    h. Apply Change: Use the `edit_file` tool.
+    f. User-Driven Edits: The user is still learning and prefers to do the edits themselves. The assistant will provide clear, step-by-step, beginner-friendly instructions and explanations, and will pause for user confirmation or questions at each step. The assistant will not make changes automatically, but will guide the user through the process.
+    g. User Consent: Obtain explicit user confirmation ("yes" or equivalent) before proceeding with each major step.
+    h. Apply Change: The user will make the change themselves, following the assistant's instructions.
         i. For DELETIONS: Structure the `code_edit` parameter to clearly show the *unchanged anchor lines* immediately before and after the deleted block (using `// ... existing code ...` appropriately) to help the tool target correctly.
     i. Verify Edit (Enhanced): Immediately use `read_file` after *any* `edit_file` attempt (success, failure, or no changes reported).
         i. **For Small Files (< ~150 lines):** Read the **entire file** content back for comparison.
@@ -23,7 +23,7 @@ Collaborative Workflow Methodology (The Protocol): To ensure accuracy and produc
     j. User Testing & Confirmation: Request the user to perform the checks identified in step (e) and report back the results (including relevant logs or console output if issues occur). Await explicit user confirmation before proceeding.
     k. Proceed or Re-evaluate: Based on user confirmation and test results, either move to the next step in the plan or re-evaluate the approach if the previous step failed or caused issues.
     l. Acknowledge Completion: Clearly state when a specific task or fix is considered complete and verified. Remind the user to commit changes to Git and push to the dev branch.
-    m. The User has no coding skill. Bear this in mind when explaining React, Node.js, TypeScript, and database concepts.
+    m. The User has no coding skill and is still learning. Bear this in mind when explaining React, Node.js, TypeScript, and database concepts. The assistant should always use beginner-friendly explanations and encourage the user to do the edits themselves for learning purposes.
     n. Tech Stack Context: Remember we're building with React (frontend), Node.js/Express (backend), TypeScript, PostgreSQL database, and following the Bulletproof methodology for StrideTrack wellness challenge tracking application.
 
 

@@ -436,20 +436,210 @@ npm run format
   3. Add a health check endpoint (`/api/health`).
 - **Why:** This provides a robust backend API foundation.
 
-## 3. Set Up the Database
-- **What:** Use Docker to run a PostgreSQL (or MongoDB) database.
-- **How:**
-  1. In your project root, create a `docker-compose.yml` file.
-  2. Add a service for the database (ask your AI assistant for a template if needed).
-  3. Add `.env.example` files in both frontend and backend for database connection info.
-- **Why:** This ensures your data is stored safely and can be accessed by the backend.
+## 3. Set Up the Database (PostgreSQL Local Installation)
+
+### Option A: Local PostgreSQL Installation (Recommended for Beginners)
+
+**What:** Install PostgreSQL directly on your computer for development and learning.
+
+**Why:** Easier to understand, no Docker complexity, works offline, perfect for learning.
+
+#### Step 1: Download PostgreSQL
+1. Go to: https://www.postgresql.org/download/windows/
+2. Click "Download the installer"
+3. Choose the latest version (PostgreSQL 16.x)
+4. Download the Windows x86-64 installer
+
+#### Step 2: Install PostgreSQL
+1. **Run the installer:**
+   - Find the downloaded file (usually in Downloads folder)
+   - Double-click to run the installer
+   - Click "Next" to start
+
+2. **Installation options (use these recommended settings):**
+   - **Installation Directory:** Keep default (`C:\Program Files\PostgreSQL\16\`)
+   - **Data Directory:** Keep default (`C:\Program Files\PostgreSQL\16\data\`)
+   - **Password:** Set a password for the `postgres` user (write this down!)
+   - **Port:** Keep default (5432)
+   - **Locale:** Keep default
+
+3. **Complete installation:**
+   - Click through remaining steps
+   - Let it install all components
+   - Click "Finish" when done
+
+#### Step 3: Verify Installation
+1. Open Command Prompt or PowerShell
+2. Test the connection:
+   ```bash
+   psql --version
+   ```
+3. You should see the PostgreSQL version number
+
+#### Step 4: Create Database for StrideTrack
+1. Open Command Prompt or PowerShell
+2. Connect to PostgreSQL as the postgres user:
+   ```bash
+   psql -U postgres
+   ```
+3. Enter the password you set during installation
+4. Create the database:
+   ```sql
+   CREATE DATABASE stridetrack;
+   ```
+5. Verify the database was created:
+   ```sql
+   \l
+   ```
+6. Exit PostgreSQL:
+   ```sql
+   \q
+   ```
+
+#### Step 5: Install Database Driver for Node.js
+1. In your backend directory, install the PostgreSQL driver:
+   ```bash
+   cd backend
+   npm install pg
+   npm install --save-dev @types/pg
+   ```
+
+#### Step 6: Test Database Connection
+1. Create a simple test file to verify connection (ask your AI assistant for help)
+2. Test that your backend can connect to the database
+
+### Option B: Docker PostgreSQL (Advanced - Add Later)
+
+**When to use:** After your app is working locally and you're ready for deployment.
+
+**What:** Use Docker to run PostgreSQL in a container.
+
+**How:**
+1. In your project root, create a `docker-compose.yml` file
+2. Add a PostgreSQL service
+3. Add `.env.example` files for database connection info
+
+**Why:** Makes deployment easier and ensures consistent environments across different machines.
+
+### Database Schema Setup (For Both Options)
+
+**What:** Create the database tables for StrideTrack.
+
+**Tables needed:**
+- **Users:** Store user account information
+- **WeeklySubmissions:** Store weekly weight, exercise, and calorie data
+- **BonusChallenges:** Store bonus challenge submissions
+
+**How:** Your AI assistant will help you create the SQL commands to set up these tables.
+
+**Why:** Without tables, you can't store any data in the database.
+
+### Troubleshooting Common Database Issues
+
+#### Issue 1: "psql is not recognized"
+**Problem:** PostgreSQL command line tools aren't in your PATH.
+**Solution:** 
+1. Restart your computer after installation
+2. Or add PostgreSQL to your PATH manually:
+   - Add `C:\Program Files\PostgreSQL\16\bin` to your system PATH
+
+#### Issue 2: "Connection refused" when connecting to database
+**Problem:** PostgreSQL service isn't running.
+**Solution:**
+1. Open Services (Windows + R, type `services.msc`)
+2. Find "PostgreSQL" service
+3. Make sure it's running (if not, right-click and select "Start")
+
+#### Issue 3: "Authentication failed" when connecting
+**Problem:** Wrong password or username.
+**Solution:**
+1. Make sure you're using the password you set during installation
+2. Try connecting as: `psql -U postgres -h localhost`
+
+#### Issue 4: "Database does not exist"
+**Problem:** You haven't created the stridetrack database yet.
+**Solution:**
+1. Connect to PostgreSQL: `psql -U postgres`
+2. Create the database: `CREATE DATABASE stridetrack;`
+
+#### Issue 5: "Module not found: pg" in Node.js
+**Problem:** PostgreSQL driver not installed.
+**Solution:**
+1. In your backend directory: `npm install pg @types/pg`
+
+**Remember:** If you get stuck, your AI assistant can help you troubleshoot any database issues!
 
 ## 4. Set Up Environment Variable Management
-- **What:** Use `.env` files to store secrets and configuration.
-- **How:**
-  1. In both `frontend` and `backend`, create a `.env.example` file listing required variables (e.g., DB connection string, JWT secret).
-  2. Never commit real `.env` files to Git.
-- **Why:** Keeps sensitive info out of your codebase.
+
+**What:** Use `.env` files to store secrets and configuration (like database passwords).
+
+**Why:** Keeps sensitive information out of your code and makes it easy to change settings.
+
+### Step 1: Install dotenv for Backend
+1. In your backend directory:
+   ```bash
+   cd backend
+   npm install dotenv
+   ```
+
+### Step 2: Create Environment Files
+1. **In the backend directory, create `.env.example`:**
+   ```
+   # Database Configuration
+   DB_HOST=localhost
+   DB_PORT=5432
+   DB_NAME=stridetrack
+   DB_USER=postgres
+   DB_PASSWORD=your_password_here
+   
+   # Server Configuration
+   PORT=3001
+   
+   # JWT Secret (for authentication)
+   JWT_SECRET=your_jwt_secret_here
+   ```
+
+2. **Create your actual `.env` file:**
+   - Copy `.env.example` to `.env`
+   - Replace `your_password_here` with your actual PostgreSQL password
+   - Replace `your_jwt_secret_here` with a random string (for security)
+
+3. **In the frontend directory, create `.env.example`:**
+   ```
+   # API Configuration
+   REACT_APP_API_URL=http://localhost:3001
+   ```
+
+### Step 3: Update .gitignore
+Make sure your `.gitignore` file includes:
+```
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+```
+
+**Important:** Never commit `.env` files to Git - they contain sensitive information!
+
+### Step 4: Load Environment Variables in Backend
+In your main server file (`backend/src/index.ts`), add this at the top:
+```typescript
+import dotenv from 'dotenv';
+dotenv.config();
+```
+
+**What this does:** Loads your environment variables so your app can use them.
+
+### Step 5: Test Environment Variables
+Create a simple test to make sure your database connection works:
+```typescript
+// Test database connection
+console.log('Database Host:', process.env.DB_HOST);
+console.log('Database Name:', process.env.DB_NAME);
+```
+
+**Why this matters:** Environment variables keep your database password and other secrets safe and make your app work in different environments (development, production, etc.).
 
 ## 5. Set Up CI/CD Pipeline
 - **What:** Automate code checks and tests on every push.

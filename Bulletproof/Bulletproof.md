@@ -5,6 +5,12 @@ This document provides a granular, phase/task/step/sub-step plan for developing 
 
 ---
 
+### Coding Style Update (Current Session)
+- All emoji log messages in the backend have been replaced with clear, plain text equivalents (e.g., 'Success:' and 'Failed:' instead of '✅' and '❌').
+- Future code and documentation will avoid emojis in log messages and comments for professionalism and clarity, as per user request.
+
+---
+
 ## CURRENT PROGRESS STATUS (Last Updated: Current Session)
 
 ### ✅ COMPLETED TASKS
@@ -32,16 +38,29 @@ This document provides a granular, phase/task/step/sub-step plan for developing 
   - App successfully runs on localhost:3000
   - Hot reloading confirmed working
   - App.tsx component explored and understood
-- 🔄 Step 1.2.2: Initialize Backend (1 hour) - **IN PROGRESS**
+- ✅ Step 1.2.2: Initialize Backend (1 hour) - **COMPLETED**
   - npm initialized in backend directory
   - Express, TypeScript, ts-node, and type definitions installed
   - package.json and package-lock.json created and committed
-  - **NEXT:** Create basic Express server and health check endpoint
-- ❌ Step 1.2.3: Database Setup (1 hour) - **NOT STARTED**
+  - Express server created with health check endpoint at `/api/health`
+  - Server runs successfully on port 3001
+  - Both `/api/health` and `/` endpoints tested and working
+- 🔄 Step 1.2.3: Database Setup (1 hour) - **IN PROGRESS**
+  - PostgreSQL installed and running (version 17.5)
+  - StrideTrack database created
+  - Node.js PostgreSQL driver (`pg`) and types installed
+  - `.env` and `.env.example` files created and configured
+  - Backend updated to use environment variables and connect to the database
+  - Connection to database tested and successful
+  - Users table created (with height column; height is stored here because it is not expected to change over time)
+  - WeeklySubmissions table created
+  - BonusChallenges table created
+  - Database schema setup complete
+  - **NEXT:** Test inserting data and begin backend integration with these tables
 - ❌ Step 1.2.4: Env Variable Management (30 min) - **NOT STARTED**
 - ❌ Step 1.2.5: CI/CD Pipeline (1 hour) - **NOT STARTED**
 
-**Checkpoint 1.2:** 🔄 **IN PROGRESS** - Frontend complete, backend setup in progress.
+**Checkpoint 1.2:** 🔄 **IN PROGRESS** - Frontend complete, backend server running and connected to database. Next: create database schema.
 
 ---
 
@@ -50,14 +69,14 @@ This document provides a granular, phase/task/step/sub-step plan for developing 
 ### Current State Summary
 - **Repository:** Fully set up with main/dev branches, comprehensive .gitignore
 - **Frontend:** React TypeScript app running successfully on localhost:3000
-- **Backend:** Dependencies installed, ready for Express server creation
-- **Git:** All changes properly committed, no lock file issues
+- **Backend:** Express server running successfully on localhost:3001 with health check endpoint
+- **Git:** All changes properly committed and pushed to dev branch
 
 ### Next Immediate Steps
-1. **Complete Step 1.2.2:** Create basic Express server with `/api/health` endpoint
-2. **Test backend:** Ensure it runs and health endpoint returns OK
-3. **Commit backend changes:** Follow proper Git workflow
-4. **Proceed to Step 1.2.3:** Database setup
+1. **Proceed to Step 1.2.3:** Database setup (PostgreSQL with Docker)
+2. **Create database schema:** Set up tables for Users, WeeklySubmissions, BonusChallenges
+3. **Test database connection:** Ensure backend can connect to database
+4. **Commit database changes:** Follow proper Git workflow
 
 ### Key Decisions Made
 - **Husky skipped:** Pre-commit hooks omitted due to complexity and blocking issues
